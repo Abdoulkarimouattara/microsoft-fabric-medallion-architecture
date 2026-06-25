@@ -151,7 +151,6 @@ Dataflow Gen2 is used to clean, standardize, and enrich the raw data.
 - Duplicate removal
 - Column standardization
 - Revenue calculations
-- Business enrichment
 
 **New features created:**
 - `line_total`
