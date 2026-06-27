@@ -1,4 +1,4 @@
-<h1 align="center">🚀 Microsoft Fabric Unified Analytics Platform</h1>
+<h1 align="center"> Microsoft Fabric Unified Analytics Platform</h1>
 
 <p align="center">
 Designing a modern unified analytics platform with Microsoft Fabric
