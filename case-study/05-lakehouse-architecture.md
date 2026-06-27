@@ -1,255 +1,61 @@
-# 🚀 Microsoft Fabric Medallion Architecture (Online Retail Analytics)
+# 05 — Lakehouse Design
 
-## 📌 Overview
-
-An end-to-end Data Engineering project built on **Microsoft Fabric**, implementing a modern **Lakehouse architecture** following the **Medallion Architecture (Bronze → Silver → Gold)**.
-
-The project demonstrates how raw e-commerce data can be ingested, transformed, modeled, and delivered as business-ready insights using Microsoft Fabric.
-
----
-
-# 🏗️ Solution Architecture
-
-The following architecture illustrates the complete data engineering workflow implemented in Microsoft Fabric.
-
-![Architecture](./architecture/architecture.png)
+| Document Information |                                             |
+| -------------------- | ------------------------------------------- |
+| **Project**          | Microsoft Fabric Unified Analytics Platform |
+| **Case Study**       | Nova Retail Group                           |
+| **Document**         | Lakehouse Design                            |
+| **Version**          | 1.0                                         |
+| **Author**           | Aboudoul Karim OUATTARA                     |
+| **Last Updated**     | June 2026                                   |
 
 ---
 
-## 📊 Power BI Report Preview
+# Executive Summary
 
-The final report is built inside **Microsoft Fabric** using a **Semantic Model** based on the curated Gold layer.
+The Lakehouse is the foundation of the Microsoft Fabric analytics platform. It combines scalable storage with analytical capabilities, providing a single location where all Fabric workloads can access the same data through **OneLake**.
 
-It provides interactive business insights into:
-
-- 💰 Sales Performance
-- 📈 Revenue Trends
-- 📦 Product Performance
-- 👥 Customer Behavior
-- 🎯 Business KPIs
-
-![Power BI Report](./architecture/online_retail_report.png)
----
-
-## 🎯 Business Use Case
-
-A retail company wants to leverage historical sales data to better understand its business performance.
-
-The solution enables business users to:
-
-- Monitor sales performance
-- Analyze monthly revenue trends
-- Identify top-selling products
-- Discover the most valuable customers
-- Track key business KPIs
-- Support strategic decision-making
+For this project, the Lakehouse was designed using the **Medallion Architecture**, ensuring that data quality improves progressively from ingestion to business reporting.
 
 ---
 
-# 🛠️ Technologies Used
+# Medallion Architecture
 
-## Microsoft Fabric
+The platform separates data into three logical layers, each serving a specific purpose within the analytics lifecycle.
 
-- OneLake
-- Lakehouse
-- Dataflow Gen2
-- Fabric Notebooks
-- Semantic Model
-- Power BI Report
+| Layer         | Purpose                                                          |
+| ------------- | ---------------------------------------------------------------- |
+| 🟤 **Bronze** | Preserve raw transactional data exactly as received.             |
+| ⚪ **Silver**  | Store cleansed, standardized, and enriched datasets.             |
+| 🟡 **Gold**   | Deliver curated business-ready datasets optimized for analytics. |
 
-## Data Engineering
-
-- PySpark
-- SQL
-
-## Architecture
-
-- Lakehouse
-- Medallion Architecture
-- ETL / ELT
+This layered approach improves data traceability, simplifies maintenance, and ensures that business users always consume trusted information.
 
 ---
 
-# 🏗️ Architecture & Pipeline Workflow
+# Why This Design?
 
-## 🟤 1. Bronze Layer — Data Ingestion
+The Lakehouse architecture was selected to support long-term scalability while keeping each layer focused on a single responsibility.
 
-The **Online Retail** dataset is manually uploaded into the Fabric Lakehouse and loaded into the Bronze layer without modification.
+### Design Principles
 
-### Objectives
+* Preserve raw data for traceability.
+* Isolate data quality transformations.
+* Separate business logic from data preparation.
+* Deliver reusable analytical datasets.
 
-- Preserve raw data
-- Ensure data traceability
-- Support future reprocessing
-- Maintain a single source of truth
-
-**Source**
-
-- Kaggle — Online Retail Dataset
-
-📸 Bronze Layer
-
-![Bronze Layer](./architecture/bronze_layer.png)
+This separation of concerns makes the platform easier to maintain and extend as new business requirements emerge.
 
 ---
 
-## ⚪ 2. Silver Layer — Data Transformation
+# OneLake Integration
 
-The Bronze dataset is transformed using **Dataflow Gen2**.
+All Lakehouse tables are stored in **OneLake**, allowing Microsoft Fabric workloads—including Dataflow Gen2, Fabric Notebooks, the Semantic Model, and Power BI—to access the same datasets without unnecessary duplication.
 
-Data quality improvements include:
-
-- Missing value handling
-- Duplicate removal
-- Data type corrections
-- Column standardization
-- Business enrichment
-
-Additional business attributes created:
-
-- `line_total`
-- `year`
-- `month`
-- `is_return`
-
-📸 Dataflow Gen2
-
-![Dataflow Gen2](./architecture/dataflow_gen2.png)
-
-📸 Silver Layer
-
-![Silver Layer](./architecture/silver_layer.png)
+This unified storage model simplifies collaboration across workloads while ensuring a single source of truth for the organization.
 
 ---
 
-## 🥇 3. Gold Layer — Business Processing
+**Previous Document ←** `04-solution-architecture.md`
 
-Business-ready datasets are generated using **Microsoft Fabric Notebooks (PySpark)**.
-
-The notebook creates analytical tables optimized for reporting and decision-making.
-
-### Revenue Analytics
-
-- Total Revenue
-- Revenue by Month
-- Revenue by Country
-
-### Order Analytics
-
-- Total Orders
-- Average Order Value
-
-### Product Analytics
-
-- Top Products by Revenue
-- Top Products by Quantity Sold
-
-### Customer Analytics
-
-- Top Customers
-- Customer Lifetime Value
-- RFM Segmentation
-
-📸 Notebook
-
-![Notebook](./architecture/notebook_processing.png)
-
-📸 Gold Layer
-
-![Gold Layer](./architecture/gold_layer.png)
-
----
-
-## 📊 4. Semantic Model & Reporting
-
-The curated Gold layer is exposed through a **Semantic Model**, which serves as the data source for an interactive **Power BI Report** built entirely in Microsoft Fabric.
-
-Business users can explore:
-
-- Revenue trends
-- Customer behavior
-- Product performance
-- Sales KPIs
-
-📸 Semantic Model
-
-![Semantic Model](./architecture/semantic_model.png)
-
-📸 Power BI Report
-
-![Power BI Report](./architecture/online_retail_report.png)
-
----
-
-## 📁 Repository Structure
-```
-project/
-│
-├── architecture/
-│   ├── architecture.png
-│   ├── bronze_layer.png
-│   ├── dataflow_gen2.png
-│   ├── silver_layer.png
-│   ├── notebook_processing.png
-│   ├── semantic_model.png
-│   ├── gold_layer.png
-│   └── powerbi_report.png
-│
-├── notebooks/
-│   └── silver_to_gold_analytics.ipynb
-│
-└── README.md
-```
----
-
-# 🎯 Skills Demonstrated
-
-This project demonstrates practical experience with:
-
-- Microsoft Fabric
-- OneLake
-- Lakehouse Architecture
-- Medallion Architecture
-- Dataflow Gen2
-- PySpark
-- Data Engineering
-- Semantic Modeling
-- Business Intelligence
-- Power BI
-- Data Transformation
-- ETL / ELT Design
-
----
-
-# 🧠 What I Learned
-
-Through this project I gained hands-on experience in:
-
-- Designing a modern Lakehouse architecture
-- Implementing Medallion Architecture
-- Building scalable ETL pipelines
-- Transforming raw data into business-ready datasets
-- Developing analytical data models
-- Creating interactive Power BI reports inside Microsoft Fabric
-
----
-
-# 🚀 Project Value
-
-This project demonstrates the ability to build an end-to-end Data Engineering solution using Microsoft Fabric, from raw data ingestion to interactive business reporting.
-
-It showcases modern cloud data engineering practices, scalable Lakehouse design, and business-oriented analytics using Microsoft's unified analytics platform.
-
-
----
-
-
-# 👨‍💻 Author
-
-**Aboudoul Karim OUATTARA**
-
-Azure Data Engineer | Microsoft Fabric Analytics Engineer | Power BI Developer
-
-📫 LinkedIn:
-
-https://www.linkedin.com/in/aboudoul-karim-ouattara-5baaba226/
+**Next Document →** `06-dataflow-engineering.md`
