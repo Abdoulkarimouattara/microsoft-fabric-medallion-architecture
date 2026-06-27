@@ -80,75 +80,98 @@ Microsoft Fabric brings together every stage of the analytics lifecycle into a u
 
 ---
 
-# ⭐ Platform Components
+# ⚙️ Data Engineering Workflow
 
-| Component              | Role in the Platform                                                              |
-| ---------------------- | --------------------------------------------------------------------------------- |
-| 🗄️ **OneLake**        | Centralized storage layer serving as the organization's single source of truth.   |
-| 🏠 **Lakehouse**       | Unified storage and analytics foundation implementing the Medallion Architecture. |
-| 🔄 **Dataflow Gen2**   | Low-code ingestion and transformation from Bronze to Silver.                      |
-| 📓 **Fabric Notebook** | PySpark transformations and business logic to generate Gold datasets.             |
-| 🧩 **Semantic Model**  | Centralized business model exposing trusted KPIs and reusable metrics.            |
-| 📊 **Power BI**        | Interactive dashboards and self-service business analytics.                       |
+The solution follows a modern **Lakehouse architecture**, where data progressively evolves from raw transactional records to trusted business insights. Each Microsoft Fabric workload plays a dedicated role in this journey while sharing the same storage foundation through **OneLake**.
 
 ---
 
-# 🏛️ Lakehouse Architecture
+## 🏠 Lakehouse Organization
 
-The solution implements a **Medallion Architecture** inside a Microsoft Fabric Lakehouse, progressively improving data quality across three logical layers.
+The journey begins in the **Microsoft Fabric Lakehouse**, where data is organized using the **Medallion Architecture**. This layered design separates raw, cleansed, and business-ready data, ensuring traceability, maintainability, and consistent analytics.
 
-| Layer         | Responsibility                                 | Output                              |
-| ------------- | ---------------------------------------------- | ----------------------------------- |
-| 🟤 **Bronze** | Store raw source data without modification     | Raw historical data                 |
-| ⚪ **Silver**  | Clean, validate, and enrich transactional data | Standardized datasets               |
-| 🟡 **Gold**   | Produce business-ready analytical tables       | Trusted KPIs and reporting datasets |
+| Layer     | Purpose                          |
+| --------- | -------------------------------- |
+| 🟤 Bronze | Preserve raw source data         |
+| ⚪ Silver  | Store cleansed and enriched data |
+| 🟡 Gold   | Deliver business-ready datasets  |
 
-This layered architecture improves **traceability**, **data quality**, **maintainability**, and **reusability**, ensuring that business users consume only curated and trusted data.
+📸 **Bronze Layer**
 
----
-
-# 🔄 Low-Code + Code Integration
-
-One of Microsoft Fabric's greatest strengths is the ability to combine **low-code** and **code-first** development within the same platform.
-
-| Low-Code Experience         | Code-First Experience                |
-| --------------------------- | ------------------------------------ |
-| Dataflow Gen2               | Fabric Notebooks (PySpark)           |
-| Visual transformations      | Advanced Spark processing            |
-| Business-friendly workflows | Custom engineering logic             |
-| Rapid data preparation      | Scalable distributed transformations |
-
-This hybrid approach enables data engineers, analysts, and business users to collaborate efficiently while using the tools best suited to their expertise.
+![Bronze Layer](./architecture/bronze_layer.png)
 
 ---
 
-# 📊 Analytics Experience
+## 🔄 Dataflow Gen2
 
-The curated Gold layer is exposed through a **Semantic Model**, providing a governed business layer for Power BI.
+Once the raw data is available in the Bronze layer, **Dataflow Gen2** applies low-code transformations to improve data quality before publishing the results to the Silver layer.
 
-Business users can explore:
+**Key Transformations**
 
-* 💰 Executive KPIs
-* 📈 Revenue Trends
-* 📦 Product Performance
-* 👥 Customer Analytics
-* 🌍 Country Performance
-* 🎯 Interactive Business Dashboards
+* Missing value handling
+* Duplicate removal
+* Data type standardization
+* Business enrichment
+
+📸 **Dataflow Gen2**
+
+![Dataflow Gen2](./architecture/dataflow_gen2.png)
+
+📸 **Silver Layer**
+
+![Silver Layer](./architecture/silver_layer.png)
+
+---
+
+## 📓 Fabric Notebook (PySpark)
+
+With clean and standardized data available, **Fabric Notebooks** use **PySpark** to implement business logic and generate curated Gold datasets optimized for analytics and reporting.
+
+**Generated Data Products**
+
+* Business KPIs
+* Revenue Trends
+* Product Performance
+* Customer Analytics
+* RFM Segmentation
+
+📸 **Fabric Notebook**
+
+![Fabric Notebook](./architecture/notebook_processing.png)
+
+📸 **Gold Layer**
+
+![Gold Layer](./architecture/gold_layer.png)
+
+---
+
+## 🧩 Semantic Model
+
+The curated Gold datasets are then exposed through a **Semantic Model**, creating a centralized business layer where KPIs, relationships, and metrics are defined once and reused consistently across reports.
+
+**Business Layer**
+
+* Trusted KPIs
+* Reusable business metrics
+* Consistent reporting model
+
+📸 **Semantic Model**
+
+![Semantic Model](./architecture/semantic_model.png)
+
+---
+
+## 📊 Power BI Analytics
+
+Finally, Power BI connects directly to the Semantic Model, allowing business users to explore interactive dashboards built on trusted, business-ready data without additional transformations.
+
+**Business Insights**
+
+* Revenue Performance
+* Product Performance
+* Customer Behavior
+* Executive KPIs
 
 📸 **Power BI Report**
 
 ![Power BI Report](./architecture/online_retail_report.png)
-
----
-
-# 🎯 Business Outcomes
-
-The Microsoft Fabric platform enables organizations to:
-
-* Deliver trusted business insights from a unified analytics platform.
-* Reduce architectural complexity through native service integration.
-* Standardize business metrics using a centralized Semantic Model.
-* Improve collaboration between Data Engineers, Analysts, and Business Users.
-* Accelerate insight delivery while maintaining governance and scalability.
-
----
